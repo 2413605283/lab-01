@@ -24,21 +24,38 @@ plastic_waste <- read_csv("data/plastic-waste.csv")
 ```{r plastic-waste-continent}
 # remove this comment and add the code for Exercise 1 here
 ```
-
+ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.2)
+  
+plastic_waste %>%
+  filter(plastic_waste_per_cap > 3.5)
+  
+ggplot(data = plastic_waste, aes(x = plastic_waste_per_cap)) +
+  geom_histogram(binwidth = 0.2)+
+  facet_wrap(~continent, nrow = 2)
 ### Exercise 2
 
 ```{r plastic-waste-density}
 # remove this comment and add the code for Exercise 2 here
 ```
-
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     color = continent, 
+                     fill = continent)) +
+  geom_density(alpha = 0.3)
 ### Exercise 3
 
 *Remove this text, and add your answer for Exercise 3 here.*
-
+ggplot(data = plastic_waste, 
+        mapping = aes(x = continent,                                                      y = plastic_waste_per_cap)) +
+     geom_boxplot()
 ### Exercise 4
 
 *Remove this text, and add your answer for Exercise 4 here.*
-
+ ggplot(data = plastic_waste, 
+        mapping = aes(x = continent, 
+                      y = plastic_waste_per_cap)) +
+     geom_violin()
 ```{r plastic-waste-violin}
 # remove this comment and add the code for Exercise 4 here
 ```
@@ -46,7 +63,9 @@ plastic_waste <- read_csv("data/plastic-waste.csv")
 ### Exercise 5
 
 *Remove this text, and add your answer for Exercise 5 here.*
-
+ggplot(data = plastic_waste, 
+         mapping = aes(x = mismanaged_plastic_waste,                                      y = plastic_waste_per_cap)) +
+      geom_point()
 ```{r plastic-waste-mismanaged}
 # remove this comment and add the code for Exercise 5 here
 ```
@@ -54,7 +73,10 @@ plastic_waste <- read_csv("data/plastic-waste.csv")
 ### Exercise 6
 
 *Remove this text, and add your answer for Exercise 6 here.*
-
+ggplot(data = plastic_waste, 
+         mapping = aes(x = mismanaged_plastic_waste,                                       y = plastic_waste_per_cap,
+                       color = continent )) +
+      geom_point()
 ```{r plastic-waste-mismanaged-continent}
 # remove this comment and add the code for Exercise 6 here
 ```
@@ -62,7 +84,15 @@ plastic_waste <- read_csv("data/plastic-waste.csv")
 ### Exercise 7
 
 *Remove this text, and add your answer for Exercise 7 here.*
-
+ggplot(data = plastic_waste, 
+         mapping = aes(x = mismanaged_plastic_waste,                                       y = total_pop,
+                       color = continent )) +
+      geom_point()
+      
+ggplot(data = plastic_waste, 
+         mapping = aes(x = coastal_pop,                                                    y = plastic_waste_per_cap,
+                       color = continent )) +
+      geom_point()
 ```{r plastic-waste-population-total}
 # remove this comment and add the code for the first plot for Exercise 7 here
 ```
@@ -74,7 +104,13 @@ plastic_waste <- read_csv("data/plastic-waste.csv")
 ### Exercise 8
 
 *Remove this text, and add your answer for Exercise 8 here.*
-
+plastic_waste_edit <- plastic_waste %>% 
+  mutate(coastal_pop_prop = coastal_pop / total_pop) %>%
+  filter(plastic_waste_per_cap < 3)
+ggplot(data = plastic_waste_edit, 
+         mapping = aes(x = mismanaged_plastic_waste,                                       y = total_pop,
+                       color = continent )) +
+      geom_point()
 ```{r recreate-viz}
 plastic_waste_edit <- plastic_waste %>% 
   mutate(coastal_pop_prop = coastal_pop / total_pop) %>%
